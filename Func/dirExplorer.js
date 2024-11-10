@@ -4,7 +4,7 @@ import * as path from "path";
 export let dirExplorer = {
   count: 0,
   result: [],
-  ext: "*.htm",
+  ext: ".htm",
   setExt(fileExtension) {
     this.ext = fileExtension;
   },

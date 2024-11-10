@@ -1,5 +1,6 @@
 import fs from "fs";
 import { bakupFile } from "./bakupFile.js";
+import { guid} from "./newGuid.js"
 
 /**
  * @param {string} fileName file we handles
@@ -33,12 +34,33 @@ export function insert(fileName, startTxt, endTxt, insertTxt) {
   }
 }
 
-export function replace(fileName, startTxt, endTxt, insertTxt) {
+export function replace(fileName, startTxt, endTxt, replacement) {
   const data = fs.readFileSync(fileName, "utf-8");
+  let startPos = data.indexOf(startTxt);
+  let stoptPos = data.indexOf(endTxt);
+  if (startPos > 0  && stoptPos > 0) {
+    const out = fs.createWriteStream(fileName);
+    out.write(`${data.substring(0, startPos)}${replacement}${data.substring(startPos + startTxt.length)}`);
+    out.end;
+    out.close;
+  }
+  else {
+    console.log("********* " + fileName)
+  }
+}
+
+export function addFooter(fileName, startTxt, endTxt, replacement) {
+  const data = fs.readFileSync(fileName, "utf-8");
+  let fileNameSections = fileName.replace('.htm','').split('\\');
+  fileNameSections.shift();
+  fileNameSections.shift();
+  replacement = replacement.replaceAll('@@@', guid())
+  replacement = replacement.replace('#!#', '/'+fileNameSections.join('/')+'.htm')
+  replacement = replacement.replace('#*#', fileNameSections.join('/')+'.htm')
   let startPos = data.indexOf(startTxt);
   if (startPos > 0 ) {
     const out = fs.createWriteStream(fileName);
-    out.write(`${data.substring(0, startPos)}${insertTxt}${data.substring(startPos + startTxt.length)}`);
+    out.write(`${data.substring(0, startPos)}${replacement}${data.substring(startPos + startTxt.length)}`);
     out.end;
     out.close;
   }
@@ -49,3 +71,14 @@ export function replace(fileName, startTxt, endTxt, insertTxt) {
   }
 }
 
+export function moveText(fileName, moveTag, beforeTxt) {
+  const data = fs.readFileSync(fileName, "utf-8");
+  let movePos = data.indexOf(moveTag);
+  let beforePos = data.indexOf(beforeTxt);
+  if (movePos > 0 && beforePos > 0) {
+    const out = fs.createWriteStream(fileName);
+    out.write(`${data.substring(0, movePos)}${data.substring(movePos+movePos.length, beforeTxt-movePos-movePos.length-1)}${moveTag}${data.substring(beforePos)}`);
+    out.end;
+    out.close;
+  }
+}
