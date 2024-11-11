@@ -9,8 +9,8 @@ export const siteFileListForExt = () => {
   
   const rootFolder = "D:\\JS-VBNET";
   const ignoreFolders = [];
-  const ext = ".pdf";   
-  const okLog = "D:\\JS-VBNET-HTM\\Log\\Pdf.txt";
+  const ext = ".avi";   
+  const okLog = "D:\\JS-VBNET-HTM\\Log\\avi.txt";
 
 
   let okStream = fs.createWriteStream(okLog);
