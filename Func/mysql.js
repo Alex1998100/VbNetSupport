@@ -1,6 +1,6 @@
 import mysql from "mysql";
 import {} from "dotenv/config";
-//localMySqlCN="mysql://xxxxxxxx:yyyyyyy@127.0.0.1:3306/vbnet"
+
 const connection = mysql.createConnection(process.env.localMySqlCN);
 
 //connect immediately in one CN without pool
@@ -38,8 +38,9 @@ export const disConnect = () =>
     } else {
       console.log("MySQL connection closed.");
     }
-  });
+});
 
+/*
 // example to use
 async function getTopics2() {
   const topics = await execMySQLQuery("SELECT * FROM vbnet.entrance order by i desc;");
@@ -55,3 +56,4 @@ async function main2() {
   }
 }
 //main2().catch(console.error);  // Handle any errors in the main function
+*/
