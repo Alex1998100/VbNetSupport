@@ -56,4 +56,4 @@ async function processOnePage(pagePath) {
       console.log(`Found link in ${pagePath}:`, correctLink); 
   }
 }
-await processOnePage(pages[0]).catch(console.error);
+//await processOnePage(pages[0]).catch(console.error);

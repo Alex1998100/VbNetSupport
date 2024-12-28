@@ -26,3 +26,15 @@ export function bakupFile(fileName) {
   }
 };
 
+
+export function copyWithRenameFile(sourcePath, destinationPath) {
+
+  fs.copyFile(sourcePath, destinationPath, (err) => {  // Callback provided
+      if (err) {
+          console.error(`Error copying or renaming file:`, err);
+          // Handle the error as needed
+      } else {
+          console.log(`File copied and renamed from ${sourcePath} to ${destinationPath}`);
+      }
+  });
+}

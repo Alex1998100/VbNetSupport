@@ -53,7 +53,7 @@ async function* getCorrectLinksForPage(pagePath) {
         if (result.length !== 0) {
           let clearLink = link.href.replace(/\/+$/, "").replace(/\?.*$/, "").trim();
           if (!clearLink.includes("/VS2015")) {
-            yield link;
+            yield {link,result};
           }
         }
       }
@@ -61,4 +61,22 @@ async function* getCorrectLinksForPage(pagePath) {
   }
 }
 
-export { getWrongLinks, getCorrectLinks, getCorrectLinksForPage };
+async function* getAllLinksForPage(pagePath) {
+  const pageTxt = await readWholeFile(pagePath); 
+  if (pageTxt) {
+    const links = extractLinks(pageTxt);
+    for (const link of links) {
+      if (link.href.endsWith(".htm")) {
+        let result = await checkLink(link.href);
+        
+          let clearLink = link.href.replace(/\/+$/, "").replace(/\?.*$/, "").trim();
+          if (!clearLink.includes("/VS2015")) {
+            yield {link,result};
+          }
+        
+      }
+    }
+  }
+}
+
+export { getWrongLinks, getCorrectLinks, getCorrectLinksForPage, getAllLinksForPage, checkLink };

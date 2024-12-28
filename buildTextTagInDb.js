@@ -30,7 +30,7 @@ async function saveTopicTagTxt(DbI, Txt) {
 
 
 async function main() {
-    for (let i = 1; i < 959; i++) {
+    for (let i = 1; i < 2000; i++) {
         const oneTopic = await getTopicWithTags(i).catch((err) => {
             console.error(`Error fetching topics for ${i}:`, err);
             return [];

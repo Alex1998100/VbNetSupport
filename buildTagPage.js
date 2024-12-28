@@ -52,7 +52,7 @@ async function main() {
         tagTxt += ""
         const date = new Date(one.CrDate);
         const year = date.getFullYear();
-        txt += `<li> (${year}) <a href="${one.URL}">${one.TXT.replaceAll("<br>", " ")}"</a> ${tagTxt}</li>\n`;
+        txt += `<li> (${year}) <a href="${one.URL}">${one.TXT.replaceAll("<br>", " ")}</a> ${tagTxt}</li>\n`;
       });
       txt += "</ul>\n";
       console.log(txt);
